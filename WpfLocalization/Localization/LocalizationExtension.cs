@@ -106,7 +106,7 @@ namespace WpfLocalization.Localization
                     return binding.ProvideValue(serviceProvider);
                 }
 
-                // Если локализация навешана на Binding, и Path = "Value", то возвращаем слушателя
+                // Если локализация навешана на Binding, то возвращаем слушателя
                 var targetBinding = target.TargetObject as Binding;
                 if (targetBinding != null && target.TargetProperty != null &&
                     target.TargetProperty.GetType().FullName == "System.Reflection.RuntimePropertyInfo" &&
