@@ -96,7 +96,7 @@ namespace WpfLocalization.Localization
                 var listener = new KeyLocalizationListener(Key, Arguments?.ToArray());
 
                 // Если локализация навешана на DependencyProperty объекта DependencyObject
-                if (target.TargetObject is DependencyObject && target.TargetProperty is DependencyProperty)
+                if ((target.TargetObject is DependencyObject && target.TargetProperty is DependencyProperty) || target.TargetObject is Setter)
                 {
                     var binding = new Binding(nameof(KeyLocalizationListener.Value))
                     {
@@ -109,8 +109,7 @@ namespace WpfLocalization.Localization
                 // Если локализация навешана на Binding, то возвращаем слушателя
                 var targetBinding = target.TargetObject as Binding;
                 if (targetBinding != null && target.TargetProperty != null &&
-                    target.TargetProperty.GetType().FullName == "System.Reflection.RuntimePropertyInfo" &&
-                    target.TargetProperty.ToString() == "System.Object Source")
+                    target.TargetProperty.GetType().FullName == "System.Reflection.RuntimePropertyInfo")
                 {
                     targetBinding.Path = new PropertyPath(nameof(KeyLocalizationListener.Value));
                     targetBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;

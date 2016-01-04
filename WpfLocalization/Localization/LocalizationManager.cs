@@ -23,14 +23,12 @@ namespace WpfLocalization.Localization
 
         public CultureInfo CurrentCulture
         {
-            get { return Thread.CurrentThread.CurrentCulture; }
+            get { return Thread.CurrentThread.CurrentUICulture; }
             set
             {
                 if (Equals(value, Thread.CurrentThread.CurrentUICulture))
                     return;
-                Thread.CurrentThread.CurrentCulture = value;
                 Thread.CurrentThread.CurrentUICulture = value;
-                CultureInfo.DefaultThreadCurrentCulture = value;
                 CultureInfo.DefaultThreadCurrentUICulture = value;
                 OnCultureChanged();
             }

@@ -16,6 +16,10 @@
             <system:String>B</system:String>
             <system:String>C</system:String>
         </x:Array>
+        
+        <Style x:Key="ExStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="Text" Value="{l:Localization World}" />
+        </Style>
     </Window.Resources>
     <Grid Margin="5">
         <Grid.RowDefinitions>
@@ -56,6 +60,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Margin="5">
                     <TextBlock.Text>
@@ -76,6 +81,8 @@
                         </l:Localization>
                     </TextBlock.Text>
                 </TextBlock>
+                
+                <TextBlock Grid.Row="3" Margin="5" Style="{StaticResource ExStyle}" />
             </Grid>
         </DockPanel>
     </Grid>
