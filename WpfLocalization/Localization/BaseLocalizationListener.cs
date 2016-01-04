@@ -1,27 +1,34 @@
 ﻿using System;
+using System.Windows;
 
 namespace WpfLocalization.Localization
 {
     /// <summary>
     /// Базовый класс для слушателей изменения культуры
     /// </summary>
-    public abstract class BaseLocalizationListener
+    public abstract class BaseLocalizationListener : IWeakEventListener, IDisposable
     {
         protected BaseLocalizationListener()
         {
-            LocalizationManager.Instance.CultureChanged += CultureChanged;
+            CultureChangedEventManager.AddListener(LocalizationManager.Instance, this);
         }
 
-        private void CultureChanged(object sender, EventArgs eventArgs)
+        public bool ReceiveWeakEvent(Type managerType, object sender, EventArgs e)
         {
-            OnCultureChanged();
+            if (managerType == typeof(CultureChangedEventManager))
+            {
+                OnCultureChanged();
+                return true;
+            }
+            return false;
         }
 
         protected abstract void OnCultureChanged();
 
-        ~BaseLocalizationListener()
+        public void Dispose()
         {
-            LocalizationManager.Instance.CultureChanged -= CultureChanged;
+            CultureChangedEventManager.RemoveListener(LocalizationManager.Instance, this);
+            GC.SuppressFinalize(this);
         }
     }
 }

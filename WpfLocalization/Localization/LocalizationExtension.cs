@@ -96,7 +96,8 @@ namespace WpfLocalization.Localization
                 var listener = new KeyLocalizationListener(Key, Arguments?.ToArray());
 
                 // Если локализация навешана на DependencyProperty объекта DependencyObject
-                if ((target.TargetObject is DependencyObject && target.TargetProperty is DependencyProperty) || target.TargetObject is Setter)
+                if ((target.TargetObject is DependencyObject && target.TargetProperty is DependencyProperty) ||
+                    target.TargetObject is Setter)
                 {
                     var binding = new Binding(nameof(KeyLocalizationListener.Value))
                     {
